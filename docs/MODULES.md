@@ -1,44 +1,44 @@
-# OctoBot-Tentacles-Manager Modules
+# OctoBot-Tentacles-Manager モジュール
 
-## Configuration
-The `configuration` module manages tentacle configuration:
-- `tentacles_setup_configuration.py`: Core configuration class
-- `tentacle_configuration.py`: Individual tentacle configuration
-- `config_file.py`: Configuration file operations
+## 設定
+`configuration`モジュールはテンタクル設定を管理します：
+- `tentacles_setup_configuration.py`：コア設定クラス
+- `tentacle_configuration.py`：個別テンタクル設定
+- `config_file.py`：設定ファイル操作
 
-## Workers
-The `workers` module contains worker classes for operations:
-- `install_worker.py`: Handles tentacle installation
-- `uninstall_worker.py`: Handles tentacle removal
-- `update_worker.py`: Handles tentacle updates
-- `tentacles_worker.py`: Base worker class
+## ワーカー
+`workers`モジュールは操作用のワーカークラスを含みます：
+- `install_worker.py`：テンタクルインストールを処理
+- `uninstall_worker.py`：テンタクル削除を処理
+- `update_worker.py`：テンタクル更新を処理
+- `tentacles_worker.py`：基本ワーカークラス
 
-## Models
-The `models` module defines data models:
-- `tentacle.py`: Tentacle model
-- `tentacle_package.py`: Package model
-- `tentacle_factory.py`: Creates tentacle instances
-- `tentacle_type.py`: Defines tentacle types
-- `tentacle_requirements_tree.py`: Dependency management
+## モデル
+`models`モジュールはデータモデルを定義します：
+- `tentacle.py`：テンタクルモデル
+- `tentacle_package.py`：パッケージモデル
+- `tentacle_factory.py`：テンタクルインスタンスを作成
+- `tentacle_type.py`：テンタクルタイプを定義
+- `tentacle_requirements_tree.py`：依存関係管理
 
-## Loaders
-The `loaders` module handles tentacle loading:
-- `tentacle_loading.py`: Loads tentacles from filesystem
+## ローダー
+`loaders`モジュールはテンタクルのロードを処理します：
+- `tentacle_loading.py`：ファイルシステムからテンタクルをロード
 
-## Exporters
-The `exporters` module manages tentacle packaging:
-- `tentacle_exporter.py`: Exports tentacles
-- `tentacle_package_exporter.py`: Creates packages
-- `tentacle_bundle_exporter.py`: Creates bundles
-- `artifact_exporter.py`: Base exporter class
+## エクスポーター
+`exporters`モジュールはテンタクルのパッケージングを管理します：
+- `tentacle_exporter.py`：テンタクルをエクスポート
+- `tentacle_package_exporter.py`：パッケージを作成
+- `tentacle_bundle_exporter.py`：バンドルを作成
+- `artifact_exporter.py`：基本エクスポータークラス
 
-## Uploaders
-The `uploaders` module handles package distribution:
-- `s3_uploader.py`: Uploads to Amazon S3
-- `nexus_uploader.py`: Uploads to Nexus repository
+## アップローダー
+`uploaders`モジュールはパッケージ配布を処理します：
+- `s3_uploader.py`：Amazon S3にアップロード
+- `nexus_uploader.py`：Nexusリポジトリにアップロード
 
-## Utilities
-The `util` module provides helper functions:
-- `tentacle_fetching.py`: Fetches and extracts tentacles
-- `tentacle_explorer.py`: Explores tentacle structure
-- `tentacle_cleaner.py`: Cleans tentacle files
+## ユーティリティ
+`util`モジュールはヘルパー関数を提供します：
+- `tentacle_fetching.py`：テンタクルの取得と展開
+- `tentacle_explorer.py`：テンタクル構造の探索
+- `tentacle_cleaner.py`：テンタクルファイルのクリーニング

@@ -1,156 +1,156 @@
-# OctoBot-Tentacles-Manager Documentation
+# OctoBot-Tentacles-Manager ドキュメント
 
-## Overview
-OctoBot-Tentacles-Manager is a module manager for the OctoBot trading platform. It provides a comprehensive system for managing "tentacles," which are modular extensions or plugins that enhance OctoBot's functionality.
+## 概要
+OctoBot-Tentacles-Managerは、OctoBot取引プラットフォームのモジュールマネージャーです。OctoBotの機能を拡張するモジュラー拡張機能またはプラグインである「テンタクル」を管理するための包括的なシステムを提供します。
 
-The system enables users to:
-- Install, update, and uninstall tentacles
-- Configure tentacles through both global and profile-specific settings
-- Create and package tentacles for distribution
-- Export tentacles to repositories (S3, Nexus)
-- Manage dependencies between tentacles
+このシステムは、ユーザーに以下の機能を提供します：
+- テンタクルのインストール、更新、アンインストール
+- グローバル設定とプロファイル固有の設定を通じたテンタクルの設定
+- 配布用のテンタクルの作成とパッケージング
+- テンタクルのリポジトリ（S3、Nexus）へのエクスポート
+- テンタクル間の依存関係の管理
 
-## Core Architecture
-OctoBot-Tentacles-Manager is built around several key systems:
+## コアアーキテクチャ
+OctoBot-Tentacles-Managerはいくつかの重要なシステムを中心に構築されています：
 
-### Configuration Management
-- `TentaclesSetupConfiguration`: Central class for managing which tentacles are active
-- Multi-layered configuration (reference, user-specific, profile-specific)
-- Activation state tracking for each tentacle
+### 設定管理
+- `TentaclesSetupConfiguration`：アクティブなテンタクルを管理するための中心的なクラス
+- 多層構成（リファレンス、ユーザー固有、プロファイル固有）
+- 各テンタクルのアクティベーション状態の追跡
 
-### Package Management
-- Worker classes for each operation (`InstallWorker`, `UpdateWorker`, `UninstallWorker`)
-- Package fetching and extraction utilities
-- Dependency resolution
+### パッケージ管理
+- 各操作のためのワーカークラス（`InstallWorker`、`UpdateWorker`、`UninstallWorker`）
+- パッケージの取得と展開ユーティリティ
+- 依存関係の解決
 
-### Loading Mechanism
-- Discovers and initializes tentacles from the filesystem
-- Manages tentacle metadata
-- Handles dependencies between tentacles
+### ローディングメカニズム
+- ファイルシステムからテンタクルを検出して初期化
+- テンタクルのメタデータを管理
+- テンタクル間の依存関係を処理
 
-### Export/Packaging System
-- Creates distributable tentacle packages
-- Support for single tentacles and tentacle bundles
-- Options for different formats (folder, zip) and processing (cythonization)
+### エクスポート/パッケージングシステム
+- 配布可能なテンタクルパッケージを作成
+- 単一テンタクルとテンタクルバンドルのサポート
+- 異なるフォーマット（フォルダ、zip）と処理（Cythonization）のオプション
 
-## Directory Structure
+## ディレクトリ構造
 ```
 octobot_tentacles_manager/
-├── api/                  # Public API functions
-│   ├── configurator.py   # Configuration API
-│   ├── installer.py      # Installation API
-│   ├── creator.py        # Creation API
+├── api/                  # 公開API関数
+│   ├── configurator.py   # 設定API
+│   ├── installer.py      # インストールAPI
+│   ├── creator.py        # 作成API
 │   └── ...
-├── configuration/        # Configuration management
-│   ├── tentacles_setup_configuration.py  # Core configuration class
-│   └── tentacle_configuration.py         # Individual tentacle config
-├── constants.py          # Constants, paths, and structure definitions
-├── workers/              # Worker classes for operations
+├── configuration/        # 設定管理
+│   ├── tentacles_setup_configuration.py  # コア設定クラス
+│   └── tentacle_configuration.py         # 個別テンタクル設定
+├── constants.py          # 定数、パス、構造定義
+├── workers/              # 操作用ワーカークラス
 │   ├── install_worker.py
 │   ├── uninstall_worker.py
 │   └── update_worker.py
-├── models/               # Data models
-│   ├── tentacle.py       # Tentacle model
-│   └── tentacle_package.py  # Package model
-├── loaders/              # Tentacle loading functionality
-├── exporters/            # Export and packaging
-├── uploaders/            # S3 and Nexus upload capabilities
-└── util/                 # Utility functions
+├── models/               # データモデル
+│   ├── tentacle.py       # テンタクルモデル
+│   └── tentacle_package.py  # パッケージモデル
+├── loaders/              # テンタクルローディング機能
+├── exporters/            # エクスポートとパッケージング
+├── uploaders/            # S3とNexusアップロード機能
+└── util/                 # ユーティリティ関数
 ```
 
-## Tentacles Structure
-Tentacles are organized in a structured hierarchy:
+## テンタクル構造
+テンタクルは構造化された階層で整理されています：
 
 ```
 tentacles/
-├── Automation/           # Automation components
+├── Automation/           # 自動化コンポーネント
 │   ├── trigger_events/
 │   ├── conditions/
 │   └── actions/
-├── Backtesting/          # Backtesting components
+├── Backtesting/          # バックテストコンポーネント
 │   ├── collectors/
 │   ├── converters/
 │   └── importers/
-├── Evaluator/            # Market evaluators
-│   ├── TA/               # Technical analysis
-│   ├── Social/           # Social media analysis
-│   ├── RealTime/         # Real-time data analysis
-│   ├── Strategies/       # Trading strategies
-│   └── Util/             # Evaluator utilities
-├── Meta/                 # Metadata components
-├── Services/             # Service components
-│   ├── Interfaces/       # User interfaces
-│   ├── Notifiers/        # Notification systems
-│   └── Services_feeds/   # Data feeds
-└── Trading/              # Trading components
-    ├── Mode/             # Trading modes
-    ├── Exchange/         # Exchange connectors
-    └── Supervisor/       # Trading supervisors
+├── Evaluator/            # 市場評価器
+│   ├── TA/               # テクニカル分析
+│   ├── Social/           # ソーシャルメディア分析
+│   ├── RealTime/         # リアルタイムデータ分析
+│   ├── Strategies/       # 取引戦略
+│   └── Util/             # 評価器ユーティリティ
+├── Meta/                 # メタデータコンポーネント
+├── Services/             # サービスコンポーネント
+│   ├── Interfaces/       # ユーザーインターフェース
+│   ├── Notifiers/        # 通知システム
+│   └── Services_feeds/   # データフィード
+└── Trading/              # 取引コンポーネント
+    ├── Mode/             # 取引モード
+    ├── Exchange/         # 取引所コネクタ
+    └── Supervisor/       # 取引スーパーバイザー
 ```
 
-## Main Operations
+## 主要操作
 
-### Installation
-Tentacles can be installed from various sources:
-- Online repositories
-- Local packages
-- Git repositories
+### インストール
+テンタクルは様々なソースからインストールできます：
+- オンラインリポジトリ
+- ローカルパッケージ
+- Gitリポジトリ
 
-The installation process:
-1. Fetches the tentacle package
-2. Extracts the contents
-3. Resolves dependencies
-4. Updates configuration files
-5. Registers the tentacle in the system
+インストールプロセス：
+1. テンタクルパッケージを取得
+2. コンテンツを展開
+3. 依存関係を解決
+4. 設定ファイルを更新
+5. システムにテンタクルを登録
 
-### Configuration
-Tentacles are configured through a layered system:
-- Default reference configuration
-- User-specific configuration
-- Profile-specific configuration
+### 設定
+テンタクルは階層化されたシステムを通じて設定されます：
+- デフォルトのリファレンス設定
+- ユーザー固有の設定
+- プロファイル固有の設定
 
-Configuration files define:
-- Which tentacles are active
-- Tentacle-specific settings
-- Dependencies between tentacles
+設定ファイルは以下を定義します：
+- どのテンタクルがアクティブか
+- テンタクル固有の設定
+- テンタクル間の依存関係
 
-### Packaging & Export
-Tentacles can be packaged for distribution:
-- As individual tentacles
-- As bundles containing multiple tentacles
-- With various formats and processing options
+### パッケージング＆エクスポート
+テンタクルは配布用にパッケージ化できます：
+- 個別のテンタクルとして
+- 複数のテンタクルを含むバンドルとして
+- 様々なフォーマットと処理オプションで
 
-### Usage in Profiles
-OctoBot supports user profiles, each with its own tentacle configuration:
-- Profiles can activate/deactivate different tentacles
-- Profile-specific configuration overrides global settings
-- Tentacle manager keeps profile configurations in sync
+### プロファイルでの使用
+OctoBotはユーザープロファイルをサポートし、各プロファイルは独自のテンタクル設定を持ちます：
+- プロファイルは異なるテンタクルをアクティブ/非アクティブにできる
+- プロファイル固有の設定はグローバル設定を上書きする
+- テンタクルマネージャーはプロファイル設定を同期させる
 
-## Usage Examples
+## 使用例
 
-### Installing Tentacles
+### テンタクルのインストール
 
 ```python
-# Using the API
+# APIの使用
 import octobot_tentacles_manager.api as tm_api
 
-# Install all available tentacles
+# 利用可能なすべてのテンタクルをインストール
 await tm_api.install_all_tentacles(path_or_url="https://tentacles.octobot.online/latest/full",
                                   tentacles_setup_config=tentacles_setup_config)
 
-# Install specific tentacles
+# 特定のテンタクルをインストール
 await tm_api.install_tentacles(["MyTradingMode", "MyEvaluator"],
                               path_or_url="https://tentacles.octobot.online/latest/full",
                               tentacles_setup_config=tentacles_setup_config)
 ```
 
-### Configuring Tentacles
+### テンタクルの設定
 
 ```python
-# Using the API
+# APIの使用
 import octobot_tentacles_manager.api as tm_api
 
-# Activate specific tentacles
+# 特定のテンタクルをアクティブ化
 activation_config = {
     "MyTradingMode": True,
     "MyEvaluator": True,
@@ -159,38 +159,38 @@ activation_config = {
 tentacles_setup_config.update_activation_configuration(activation_config, False, False)
 tentacles_setup_config.save_config()
 
-# Check if a tentacle is activated
+# テンタクルがアクティブかどうかを確認
 is_active = tentacles_setup_config.is_tentacle_activated("MyTradingMode")
 ```
 
-### Creating and Packaging Tentacles
+### テンタクルの作成とパッケージング
 
 ```python
-# Using the API
+# APIの使用
 import octobot_tentacles_manager.api as tm_api
 
-# Create a tentacle package
+# テンタクルパッケージを作成
 await tm_api.create_tentacles_package(output_dir="./output",
                                      tentacles=["MyTradingMode", "MyEvaluator"],
                                      tentacles_setup_config=tentacles_setup_config)
 ```
 
-## CLI Interface
-OctoBot-Tentacles-Manager provides a command-line interface for common operations:
+## CLIインターフェース
+OctoBot-Tentacles-Managerは一般的な操作のためのコマンドラインインターフェースを提供します：
 
 ```bash
-# Install all tentacles
+# すべてのテンタクルをインストール
 python octobot_tentacles_manager/cli.py install all
 
-# Install specific tentacles
+# 特定のテンタクルをインストール
 python octobot_tentacles_manager/cli.py install MyTradingMode MyEvaluator
 
-# Update tentacles
+# テンタクルを更新
 python octobot_tentacles_manager/cli.py update all
 
-# Uninstall tentacles
+# テンタクルをアンインストール
 python octobot_tentacles_manager/cli.py uninstall MyTradingMode
 
-# Create a tentacle package
+# テンタクルパッケージを作成
 python octobot_tentacles_manager/cli.py package MyTradingMode MyEvaluator --output ./output
 ```
